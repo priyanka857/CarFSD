@@ -1,0 +1,11 @@
+.navbar {
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-brand:hover {
+  opacity: 0.9;
+}
+
+.nav-link:hover {
+  color: #ffe600 !important;
+}
