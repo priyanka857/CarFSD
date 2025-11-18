@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import API_BASE_URL from "../config";
+
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,7 +22,7 @@ function Login() {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/users/login", {
+      const res = await axios.post(`${API_BASE_URL}/api/users/login`, {
         email,
         password,
       });

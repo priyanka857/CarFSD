@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 
 function AdminManageBookings() {
   const [bookings, setBookings] = useState([]);
 
   const fetchAll = async () => {
     const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:5000/api/bookings", {
+    const res = await axios.get(`${API_BASE_URL}/api/bookings`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setBookings(res.data);
@@ -15,7 +16,7 @@ function AdminManageBookings() {
   const updateStatus = async (id, status) => {
     const token = localStorage.getItem("token");
     await axios.put(
-      `http://localhost:5000/api/bookings/${id}/status`,
+      `${API_BASE_URL}/api/bookings/${id}/status`,
       { status },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -24,7 +25,7 @@ function AdminManageBookings() {
 
   const deleteBooking = async (id) => {
     const token = localStorage.getItem("token");
-    await axios.delete(`http://localhost:5000/api/bookings/${id}`, {
+    await axios.delete(`${API_BASE_URL}/api/bookings/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     fetchAll();

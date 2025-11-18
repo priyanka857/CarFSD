@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
 
 const getToken = () => {
   try {
@@ -18,12 +19,15 @@ function AdminManageEmployees() {
     setLoading(true);
     try {
       const token = getToken();
-      const res = await axios.get("http://localhost:5000/api/employees", {
+      const res = await axios.get(`${API_BASE_URL}/api/employees`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setList(res.data);
     } catch (err) {
-      console.error("Fetch employees error:", err.response?.data || err.message);
+      console.error(
+        "Fetch employees error:",
+        err.response?.data || err.message
+      );
       alert("Unable to fetch employees. Check auth.");
     } finally {
       setLoading(false);
@@ -34,7 +38,7 @@ function AdminManageEmployees() {
     try {
       const token = getToken();
       await axios.put(
-        `http://localhost:5000/api/employees/${id}/status`,
+        `${API_BASE_URL}/api/employees/${id}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -49,7 +53,7 @@ function AdminManageEmployees() {
     if (!window.confirm("Delete this application?")) return;
     try {
       const token = getToken();
-      await axios.delete(`http://localhost:5000/api/employees/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/employees/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchAll();

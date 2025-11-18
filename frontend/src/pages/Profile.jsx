@@ -3,6 +3,8 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { FaCamera } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config";
+
 
 const Profile = () => {
   const { user, updateUser } = useContext(AuthContext);
@@ -43,7 +45,7 @@ const Profile = () => {
     try {
       // 1️⃣ Upload to Cloudinary
       const uploadRes = await axios.post(
-        "http://localhost:5000/api/upload/profile",
+        `${API_BASE_URL}/api/upload/profile`,
         data,
         {
           headers: {
@@ -55,7 +57,7 @@ const Profile = () => {
 
       // 2️⃣ Update user picture in database
       const updateRes = await axios.put(
-        "http://localhost:5000/api/users/profile",
+        `${API_BASE_URL}/api/users/profile`,
         { profilePicture: uploadRes.data.imageUrl },
         {
           headers: { Authorization: `Bearer ${user?.token}` },
@@ -80,7 +82,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/users/profile",
+        `${API_BASE_URL}/api/users/profile`,
         { name: formData.name },
         {
           headers: { Authorization: `Bearer ${user?.token}` },

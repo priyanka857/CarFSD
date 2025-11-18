@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { Card } from "react-bootstrap";
+import API_BASE_URL from "../config";
+
 
 const AdminProfile = () => {
   const { user, updateUser } = useContext(AuthContext);
@@ -21,7 +23,7 @@ const AdminProfile = () => {
     try {
       const token = user?.token;
       const res = await axios.put(
-        "http://localhost:5000/api/users/profile",
+        `${API_BASE_URL}/api/users/profile`,
         formData,
         {
           headers: {

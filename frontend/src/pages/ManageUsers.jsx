@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
+
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +28,7 @@ const ManageUsers = () => {
     }
 
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/users", {
+      const res = await axios.get(`${API_BASE_URL}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
@@ -46,7 +48,7 @@ const ManageUsers = () => {
 
     try {
       const token = getToken();
-      await axios.delete(`http://localhost:5000/api/admin/users/${id}`, {
+      await axios.delete(`${API_BASE_URL}/api/admin/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(users.filter((u) => u._id !== id)); // instant update
@@ -67,7 +69,7 @@ const ManageUsers = () => {
     try {
       const token = getToken();
       await axios.put(
-        `http://localhost:5000/api/admin/users/${editingUser}`,
+        `${API_BASE_URL}/api/admin/users/${editingUser}`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

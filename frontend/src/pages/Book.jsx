@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
+
 
 function Book() {
   const [form, setForm] = useState({
@@ -21,7 +23,7 @@ function Book() {
     e.preventDefault();
     const token = localStorage.getItem("token");
     try {
-      const res = await axios.post("http://localhost:5000/api/bookings", form, {
+      const res = await axios.post(`${API_BASE_URL}/api/bookings`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert(res.data.message);

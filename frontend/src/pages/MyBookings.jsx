@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config";
+
 
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
@@ -9,7 +11,7 @@ function MyBookings() {
     const fetchBookings = async () => {
       const token = localStorage.getItem("token");
       try {
-        const res = await axios.get("http://localhost:5000/api/bookings/my", {
+        const res = await axios.get(`${API_BASE_URL}/api/bookings/my`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBookings(res.data);

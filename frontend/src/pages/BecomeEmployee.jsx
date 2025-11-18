@@ -1,6 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import API_BASE_URL from "../config";
+
 
 const getToken = () => {
   try {
@@ -33,7 +35,7 @@ function BecomeEmployee() {
       try {
         const token = getToken();
         if (!token) return;
-        const res = await axios.get("http://localhost:5000/api/employees/me", {
+        const res = await axios.get(`${API_BASE_URL}/api/employees/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data && res.data._id) {
@@ -66,13 +68,13 @@ function BecomeEmployee() {
 
       if (hasExisting) {
         // update my employee profile
-        await axios.put("http://localhost:5000/api/employees/me", form, {
+        await axios.put(`${API_BASE_URL}/api/employees/me`, form, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Profile updated successfully!");
       } else {
         // first-time apply
-        await axios.post("http://localhost:5000/api/employees", form, {
+        await axios.post(`${API_BASE_URL}/api/employees`, form, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Application submitted successfully!");
